@@ -166,14 +166,18 @@ app.post("/api/analyze-upload", upload.single("image"), async (req: express.Requ
   }
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === "production") {
+// Serve static files in production (only if not running on Vercel)
+if (process.env.NODE_ENV === "production" && !process.env.VERCEL) {
   app.use(express.static(path.join(import.meta.dirname, "../dist")));
   app.get("*", (_, res) => {
     res.sendFile(path.join(import.meta.dirname, "../dist/index.html"));
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`🏥 Prescription Recognition API running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🏥 Prescription Recognition API running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
