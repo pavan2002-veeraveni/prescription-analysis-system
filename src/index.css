@@ -1,0 +1,66 @@
+@import '@fontsource/outfit/400.css';
+@import '@fontsource/outfit/500.css';
+@import '@fontsource/outfit/600.css';
+@import '@fontsource/outfit/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 200 20% 98%;
+    --foreground: 210 40% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 40% 15%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 168 76% 42%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 200 20% 94%;
+    --muted-foreground: 210 20% 45%;
+    --accent: 199 89% 95%;
+    --accent-foreground: 199 89% 35%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 199 89% 48%;
+    --radius: 0.75rem;
+    --gradient-hero: linear-gradient(135deg, hsl(199, 89%, 48%) 0%, hsl(168, 76%, 42%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsl(199, 89%, 48%, 0.15) 0%, transparent 70%);
+    --shadow-soft: 0 4px 20px -4px hsl(199, 89%, 48%, 0.15);
+    --shadow-card: 0 8px 32px -8px hsl(210, 40%, 15%, 0.1);
+    --shadow-elevated: 0 16px 48px -12px hsl(210, 40%, 15%, 0.15);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+  .bg-gradient-hero { background-image: var(--gradient-hero); }
+  .bg-gradient-glow { background-image: var(--gradient-glow); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-elevated { box-shadow: var(--shadow-elevated); }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
