@@ -6,7 +6,7 @@ const steps = [
   { icon: FileSearch, label: "Extracting data", description: "Identifying medications" },
 ];
 
-export function ProcessingState({ currentStep = 1 }: { currentStep?: number }) {
+export function ProcessingState({ currentStep = 1 }) {
   return (
     <div className="w-full max-w-md mx-auto py-12">
       <div className="text-center mb-8">

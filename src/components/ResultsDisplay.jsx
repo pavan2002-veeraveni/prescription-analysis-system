@@ -1,21 +1,7 @@
 import { FileText, Pill, Clock, AlertCircle, Copy, Check } from "lucide-react";
 import { useState } from "react";
 
-interface MedicationItem {
-  name: string;
-  dosage?: string;
-  frequency?: string;
-  duration?: string;
-  instructions?: string;
-}
-
-interface ResultsDisplayProps {
-  rawText: string;
-  medications: MedicationItem[];
-  additionalNotes?: string;
-}
-
-export function ResultsDisplay({ rawText, medications, additionalNotes }: ResultsDisplayProps) {
+export function ResultsDisplay({ rawText, medications, additionalNotes }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {

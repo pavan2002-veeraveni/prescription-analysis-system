@@ -2,19 +2,14 @@ import { useState, useCallback } from "react";
 import { Upload, Image, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface UploadZoneProps {
-  onFileSelect: (file: File) => void;
-  disabled?: boolean;
-}
-
-export function UploadZone({ onFileSelect, disabled }: UploadZoneProps) {
+export function UploadZone({ onFileSelect, disabled }) {
   const [isDragOver, setIsDragOver] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState(null);
 
-  const handleDragOver = useCallback((e: React.DragEvent) => { e.preventDefault(); if (!disabled) setIsDragOver(true); }, [disabled]);
-  const handleDragLeave = useCallback((e: React.DragEvent) => { e.preventDefault(); setIsDragOver(false); }, []);
+  const handleDragOver = useCallback((e) => { e.preventDefault(); if (!disabled) setIsDragOver(true); }, [disabled]);
+  const handleDragLeave = useCallback((e) => { e.preventDefault(); setIsDragOver(false); }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
+  const handleDrop = useCallback((e) => {
     e.preventDefault();
     setIsDragOver(false);
     if (disabled) return;
@@ -22,14 +17,14 @@ export function UploadZone({ onFileSelect, disabled }: UploadZoneProps) {
     if (file && file.type.startsWith("image/")) processFile(file);
   }, [disabled]);
 
-  const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInput = useCallback((e) => {
     const file = e.target.files?.[0];
     if (file) processFile(file);
   }, []);
 
-  const processFile = (file: File) => {
+  const processFile = (file) => {
     const reader = new FileReader();
-    reader.onload = (e) => setPreview(e.target?.result as string);
+    reader.onload = (e) => setPreview(e.target?.result);
     reader.readAsDataURL(file);
     onFileSelect(file);
   };

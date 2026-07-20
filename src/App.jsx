@@ -4,37 +4,21 @@ import { UploadZone } from "./components/UploadZone";
 import { ProcessingState } from "./components/ProcessingState";
 import { ResultsDisplay } from "./components/ResultsDisplay";
 
-type AppState = "idle" | "processing" | "results";
-
-interface MedicationItem {
-  name: string;
-  dosage?: string;
-  frequency?: string;
-  duration?: string;
-  instructions?: string;
-}
-
-interface AnalysisResult {
-  rawText: string;
-  medications: MedicationItem[];
-  additionalNotes?: string;
-}
-
 export default function App() {
-  const [state, setState] = useState<AppState>("idle");
+  const [state, setState] = useState("idle");
   const [processingStep, setProcessingStep] = useState(0);
-  const [result, setResult] = useState<AnalysisResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
-  const fileToBase64 = (file: File): Promise<string> =>
+  const fileToBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
+      reader.onload = () => resolve(reader.result);
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
 
-  const analyzePrescription = useCallback(async (file: File) => {
+  const analyzePrescription = useCallback(async (file) => {
     setState("processing");
     setProcessingStep(0);
     setError(null);
